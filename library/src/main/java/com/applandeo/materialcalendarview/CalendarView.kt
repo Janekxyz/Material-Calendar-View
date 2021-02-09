@@ -395,6 +395,13 @@ class CalendarView @JvmOverloads constructor(
     }
 
     /**
+     * This method returns a minimum available date in calendar
+     *
+     * @return Calendar object representing a minimum date
+     */
+    fun getMinimumDate(): Calendar? = calendarProperties.minimumDate
+
+    /**
      * This method set a maximum available date in calendar
      *
      * @param calendar Calendar object representing a maximum date
@@ -403,6 +410,13 @@ class CalendarView @JvmOverloads constructor(
         calendarProperties.maximumDate = calendar
         calendarPageAdapter.notifyDataSetChanged()
     }
+
+    /**
+     * This method returns a maximum available date in calendar
+     *
+     * @return Calendar object representing a maximum date
+     */
+    fun getMaximumDate(): Calendar? = calendarProperties.maximumDate
 
     /**
      * This method is used to return to current month page
@@ -420,10 +434,22 @@ class CalendarView @JvmOverloads constructor(
         calendarPageAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * This method sets list of disabled days in calendar
+     *
+     * @param disabledDays list of Calendars object representing a disabled days
+     */
     fun setDisabledDays(disabledDays: List<Calendar>) {
         calendarProperties.disabledDays = disabledDays
         calendarPageAdapter.notifyDataSetChanged()
     }
+
+    /**
+     * This method returns list of disabled days in calendar
+     *
+     * @return List of Calendars object representing a disabled days
+     */
+    fun getDisabledDays(): List<Calendar> = calendarProperties.disabledDays
 
     @Deprecated("Use setCalendarDays(List<CalendarDay>) with specific labelColor")
     fun setHighlightedDays(highlightedDays: List<Calendar>) {
@@ -443,6 +469,20 @@ class CalendarView @JvmOverloads constructor(
     fun setOnPagePrepareListener(listener: OnPagePrepareListener) {
         calendarProperties.onPagePrepareListener = listener
     }
+
+    /**
+     * This method checks if given day is inside current month
+     *
+     * @param day an object that will be checked if it is in the current month
+     */
+    fun isDayInCurrentMonth(day: Calendar): Boolean = currentPageDate.get(Calendar.MONTH) == day.get(Calendar.MONTH)
+
+    /**
+     * This method checks if given day is between minimum and maximum dates
+     *
+     * @param day an object that will be checked if it is in between minimum and maximum dates
+     */
+    fun isBetweenMinAndMax(day: Calendar): Boolean = day.isBetweenMinAndMax(calendarProperties)
 
     companion object {
         const val CLASSIC = 0

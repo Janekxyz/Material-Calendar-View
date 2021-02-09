@@ -68,7 +68,13 @@ public class CalendarActivity extends AppCompatActivity {
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
                         eventDay.getCalendar().getTime().toString() + " "
-                                + eventDay.isEnabled(),
+                                + eventDay.isEnabled() + " isBetweenMinAndMax: " + calendarView.isBetweenMinAndMax(eventDay.getCalendar()),
+                        Toast.LENGTH_SHORT).show());
+
+        calendarView.setOnDayLongClickListener(eventDay ->
+                Toast.makeText(getApplicationContext(),
+                        "Disabled days size: " + calendarView.getDisabledDays().size() + " isDayInCurrentMonth: "
+                                + calendarView.isDayInCurrentMonth(eventDay.getCalendar()),
                         Toast.LENGTH_SHORT).show());
 
         Button setDateButton = (Button) findViewById(R.id.setDateButton);
